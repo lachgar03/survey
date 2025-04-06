@@ -27,15 +27,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
+                .csrf(csrf -> csrf.disable()) // désactive CSRF (attention en prod)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/auth/**").permitAll()
+                        .requestMatchers("/api/auth/**").permitAll() // OUVRE le endpoint d'inscription/login
                         .anyRequest().authenticated()
                 );
-
         return http.build();
     }
-
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
