@@ -22,25 +22,24 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public Utilisateur register(RegisterRequest request) {
-        // Création du profil
+
         Profil profil = new Profil();
         profil.setNom(request.getNom());
         profil.setPrenom(request.getPrenom());
         profil.setEmail(request.getEmail());
 
-        // Création de l'utilisateur
         Utilisateur user = new Utilisateur();
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(Role.PARTICIPANT); // Valeur par défaut
+        user.setRole(request.getRole() != null ? request.getRole() : Role.PARTICIPANT);
         user.setProfil(profil);
-        user.setXp(0); // Initialisation XP
+        user.setXp(0);
 
         return utilisateurRepository.save(user);
     }
 
     public Utilisateur authenticate(AuthRequest request) {
-        // Vérifie les credentials
+
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -48,7 +47,7 @@ public class AuthService {
                 )
         );
 
-        // Retourne l'utilisateur si auth réussie
+
         return utilisateurRepository.findByEmail(request.getEmail())
                 .orElseThrow();
     }
