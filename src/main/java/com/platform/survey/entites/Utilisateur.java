@@ -2,12 +2,13 @@ package com.platform.survey.entites;
 
 import com.platform.survey.enums.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Utilisateur {
@@ -25,4 +26,35 @@ public class Utilisateur {
 
     private int xp;
     private int niveau;
+    @ManyToMany
+    private List<Badge> badges;
+
+    @OneToMany(mappedBy = "createur", fetch = FetchType.LAZY)
+    private List<Sondage> sondagesCrees;
+
+    @OneToMany(mappedBy = "utilisateur")
+    private List<Reponse> reponses;
+
+    @OneToMany(mappedBy = "utilisateur")
+    private List<TransactionRecompense> transactionsRecompenses;
+
+    public void ajouterBadge(Badge badge) {
+        badges.add(badge);
+        badge.getUtilisateurs().add(this);
+    }
+
+    public void ajouterSondageCree(Sondage sondage) {
+        sondagesCrees.add(sondage);
+        sondage.setCreateur(this);
+    }
+
+    public void ajouterReponse(Reponse reponse) {
+        reponses.add(reponse);
+        reponse.setUtilisateur(this);
+    }
+
+    public void ajouterTransactionRecompense(TransactionRecompense transaction) {
+        transactionsRecompenses.add(transaction);
+        transaction.setUtilisateur(this);
+    }
 }

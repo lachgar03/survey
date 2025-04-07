@@ -2,15 +2,21 @@ package com.platform.survey.entites;
 
 import com.platform.survey.enums.TypeQuestion;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Question {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String texte;
@@ -23,4 +29,17 @@ public class Question {
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
     private List<Option> options;
+
+    @OneToMany(mappedBy = "question")
+    private List<Reponse> reponses;
+
+
+    public void ajouterOption(Option option) {
+        options.add(option);
+        option.setQuestion(this);
+    }
+    public void ajouterReponse(Reponse reponse) {
+        reponses.add(reponse);
+        reponse.setQuestion(this);
+    }
 }

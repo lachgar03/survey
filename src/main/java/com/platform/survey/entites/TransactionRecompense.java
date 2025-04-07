@@ -4,16 +4,21 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Entity
 @Getter
 @Setter
-public class Option {
+public class TransactionRecompense {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String texte;
 
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Question question;
+    private Utilisateur utilisateur;
 
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private Recompense recompense;
+
+    private LocalDate dateTransaction;
 }

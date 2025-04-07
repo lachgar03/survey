@@ -1,17 +1,22 @@
 package com.platform.survey.entites;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import lombok.Data;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Recompense {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nom;
     private String description;
     private int coutXp;
+
+    @OneToMany(mappedBy = "recompense", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    private List<TransactionRecompense> transactions;
 }
