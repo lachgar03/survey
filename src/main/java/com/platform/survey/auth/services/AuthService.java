@@ -2,8 +2,8 @@ package com.platform.survey.auth.services;
 
 
 
-import com.platform.survey.DTOs.AuthRequest;
-import com.platform.survey.DTOs.RegisterRequest;
+import com.platform.survey.auth.DTOs.AuthRequest;
+import com.platform.survey.auth.DTOs.RegisterRequest;
 import com.platform.survey.entites.Profil;
 import com.platform.survey.entites.Utilisateur;
 import com.platform.survey.enums.Role;

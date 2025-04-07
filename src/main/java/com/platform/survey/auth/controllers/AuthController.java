@@ -2,9 +2,9 @@ package com.platform.survey.auth.controllers;
 
 
 
-import com.platform.survey.DTOs.AuthRequest;
-import com.platform.survey.DTOs.AuthResponse;
-import com.platform.survey.DTOs.RegisterRequest;
+import com.platform.survey.auth.DTOs.AuthRequest;
+import com.platform.survey.auth.DTOs.AuthResponse;
+import com.platform.survey.auth.DTOs.RegisterRequest;
 import com.platform.survey.auth.config.JwtTokenUtil;
 import com.platform.survey.auth.services.AuthService;
 import com.platform.survey.entites.Utilisateur;

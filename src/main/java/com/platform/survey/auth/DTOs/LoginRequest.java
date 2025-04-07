@@ -1,10 +1,9 @@
-package com.platform.survey.DTOs;
-
+package com.platform.survey.auth.DTOs;
 
 import lombok.Data;
 
 @Data
-public class AuthRequest {
+public class LoginRequest {
     private String email;
     private String password;
 }

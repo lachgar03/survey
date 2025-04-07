@@ -1,4 +1,4 @@
-package com.platform.survey.DTOs;
+package com.platform.survey.auth.DTOs;
 
 import com.platform.survey.enums.Role;
 import lombok.Data;
