@@ -26,7 +26,6 @@ public class AuthService {
         Profil profil = new Profil();
         profil.setNom(request.getNom());
         profil.setPrenom(request.getPrenom());
-        profil.setEmail(request.getEmail());
 
         Utilisateur user = new Utilisateur();
         user.setEmail(request.getEmail());
