@@ -2,6 +2,7 @@ package com.platform.survey.auth.controllers;
 
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.platform.survey.auth.DTOs.AuthRequest;
 import com.platform.survey.auth.DTOs.AuthResponse;
 import com.platform.survey.auth.DTOs.RegisterRequest;
@@ -36,6 +37,17 @@ public class AuthController {
         Utilisateur user = authService.authenticate(request);
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
         String token = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new AuthResponse(token, user));
+        AuthResponse response = new AuthResponse(token, user);
+
+        // Debug the response
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonResponse = mapper.writeValueAsString(response);
+            System.out.println("JSON Response: " + jsonResponse);
+        } catch (Exception e) {
+            System.err.println("Error serializing response: " + e.getMessage());
+        }
+
+        return ResponseEntity.ok(response);
     }
 }

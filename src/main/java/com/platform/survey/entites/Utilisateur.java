@@ -1,5 +1,7 @@
 package com.platform.survey.entites;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.platform.survey.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
@@ -22,20 +24,25 @@ public class Utilisateur {
     private Role role;
 
     @OneToOne(cascade = CascadeType.ALL)
+    @JsonManagedReference
     private Profil profil;
 
     private int xp;
     private int niveau;
     @ManyToMany
+    @JsonIgnore
     private List<Badge> badges;
 
     @OneToMany(mappedBy = "createur", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Sondage> sondagesCrees;
 
     @OneToMany(mappedBy = "utilisateur")
+    @JsonManagedReference
     private List<Reponse> reponses;
 
     @OneToMany(mappedBy = "utilisateur")
+    @JsonManagedReference
     private List<TransactionRecompense> transactionsRecompenses;
 
     public void ajouterBadge(Badge badge) {
