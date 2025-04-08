@@ -1,5 +1,6 @@
 package com.platform.survey.entites;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -23,6 +24,7 @@ public class Profil {
     private String numeroTelephone;
 
     @OneToOne(mappedBy = "profil", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonBackReference
     private Utilisateur utilisateur;
 
     @ElementCollection
