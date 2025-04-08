@@ -5,10 +5,13 @@ package com.platform.survey.auth.controllers;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.platform.survey.auth.DTOs.AuthRequest;
 import com.platform.survey.auth.DTOs.AuthResponse;
+import com.platform.survey.auth.DTOs.RegisterData;
 import com.platform.survey.auth.DTOs.RegisterRequest;
 import com.platform.survey.auth.config.JwtTokenUtil;
 import com.platform.survey.auth.services.AuthService;
+import com.platform.survey.entites.Profil;
 import com.platform.survey.entites.Utilisateur;
+import com.platform.survey.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,7 +29,22 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
-        Utilisateur user = authService.register(request);
+        System.out.println("=== REGISTER ===");
+        System.out.println("Email: " + request.getEmail());
+        Profil profil = new Profil();
+        profil.setNom(request.getNom());
+        profil.setPrenom(request.getPrenom());
+        profil.setMetier(request.getMetier());
+        profil.setRegion(request.getRegion());
+        profil.setAge(request.getAge());
+        profil.setNumeroTelephone(request.getNumeroTelephone());
+        profil.setInterets(request.getInterets());
+        RegisterData registerData = new RegisterData(
+                request.getEmail(),
+                request.getPassword(),
+                profil
+        );
+        Utilisateur user = authService.register(registerData);
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
         String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new AuthResponse(token, user));

@@ -1,15 +1,21 @@
 package com.platform.survey.auth.DTOs;
 
-import com.platform.survey.enums.Role;
+import com.platform.survey.entites.Profil;
 import lombok.Data;
-import lombok.Getter;
+
+import java.util.List;
 
 @Data
-@Getter
 public class RegisterRequest {
-    private String nom;
-    private String prenom;
     private String email;
     private String password;
-    private Role role;
+
+    private String nom;
+    private String prenom;
+    private String metier;
+    private String region;
+    private int age;
+    private String numeroTelephone;
+    private List<String> interets;
 }
+

@@ -12,17 +12,17 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/profile")
+@RequestMapping("/api/profileManage")
 @RequiredArgsConstructor
 public class ProfileController {
     private final ProfileService profileService;
 
-    @GetMapping
+    @GetMapping("/profile")
     public ResponseEntity<Profil> getProfile(@AuthenticationPrincipal User user) {
         return ResponseEntity.ok(profileService.getProfile(user.getUsername()));
     }
 
-    @PutMapping
+    @PutMapping("/update")
     public ResponseEntity<Utilisateur> updateProfile(
             @AuthenticationPrincipal User user,
             @RequestBody ProfileUpdateRequest request) {

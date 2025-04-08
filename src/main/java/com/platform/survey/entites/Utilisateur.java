@@ -23,9 +23,18 @@ public class Utilisateur {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonManagedReference
+    @JoinColumn(name = "profil_id") // specify the foreign key
     private Profil profil;
+
+    public void setProfil(Profil profil) {
+        this.profil = profil;
+        if (profil != null) {
+            profil.setUtilisateur(this);
+        }
+    }
+
 
     private int xp;
     private int niveau;

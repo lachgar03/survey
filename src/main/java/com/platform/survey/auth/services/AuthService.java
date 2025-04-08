@@ -3,7 +3,7 @@ package com.platform.survey.auth.services;
 
 
 import com.platform.survey.auth.DTOs.AuthRequest;
-import com.platform.survey.auth.DTOs.RegisterRequest;
+import com.platform.survey.auth.DTOs.RegisterData;
 import com.platform.survey.entites.Profil;
 import com.platform.survey.entites.Utilisateur;
 import com.platform.survey.enums.Role;
@@ -21,21 +21,20 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
 
-    public Utilisateur register(RegisterRequest request) {
-
-        Profil profil = new Profil();
-        profil.setNom(request.getNom());
-        profil.setPrenom(request.getPrenom());
+    public Utilisateur register(RegisterData request) {
+        Profil profil = request.getProfil();
 
         Utilisateur user = new Utilisateur();
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setRole(request.getRole() != null ? request.getRole() : Role.PARTICIPANT);
+        user.setRole(Role.PARTICIPANT);
         user.setProfil(profil);
+        profil.setUtilisateur(user);
         user.setXp(0);
 
         return utilisateurRepository.save(user);
     }
+
 
     public Utilisateur authenticate(AuthRequest request) {
 
