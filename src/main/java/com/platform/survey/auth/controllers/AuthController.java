@@ -34,11 +34,11 @@ public class AuthController {
         Profil profil = new Profil();
         profil.setNom(request.getNom());
         profil.setPrenom(request.getPrenom());
-        profil.setMetier(request.getMetier());
-        profil.setRegion(request.getRegion());
-        profil.setAge(request.getAge());
-        profil.setNumeroTelephone(request.getNumeroTelephone());
-        profil.setInterets(request.getInterets());
+        profil.setMetier(null);
+        profil.setRegion(null);
+        profil.setAge(0);
+        profil.setNumeroTelephone(null);
+        profil.setInterets(null);
         RegisterData registerData = new RegisterData(
                 request.getEmail(),
                 request.getPassword(),
